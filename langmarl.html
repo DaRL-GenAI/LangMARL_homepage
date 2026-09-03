@@ -164,7 +164,7 @@
 <section class="section" style="padding-top: 0;">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <div class="column is-full-width">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
@@ -273,6 +273,21 @@
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">How does LangMARL work?</h2>
+
+        <figure class="paper-figure">
+          <picture>
+            <source srcset="./static/images/langmarl/pipeline_stages.webp" type="image/webp">
+            <img src="./static/images/langmarl/pipeline_stages.gif"
+                 alt="Animated walkthrough of the LangMARL pipeline: decentralized rollout, centralized language critic, language policy gradient, and self-evolved coordination.">
+          </picture>
+          <figcaption>
+            <strong>The LangMARL loop, stage by stage.</strong> A decentralized rollout produces one episodic
+            trajectory; a centralized critic turns it into per-agent language credits; those credits become language
+            policy gradients and a semantic policy update; and the agents that come out the other side have
+            self-organized into complementary roles.
+          </figcaption>
+        </figure>
+
         <div class="content has-text-justified">
           <p>
             LangMARL follows a <strong>language CTDE</strong> loop. During training, a centralized critic sees the full

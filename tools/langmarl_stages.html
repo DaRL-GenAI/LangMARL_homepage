@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>LangMARL pipeline stages</title>
+<link href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,700|Noto+Sans:400,600" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0;background:#fff;}
+  body{width:1600px;height:900px;overflow:hidden;
+       font-family:'Google Sans','Noto Sans',-apple-system,Helvetica,Arial,sans-serif;
+       -webkit-font-smoothing:antialiased;}
+  .wrap{position:relative;width:1600px;height:900px;}
+
+  .col{position:absolute;top:0;width:368px;visibility:hidden;}
+  .c1{left:28px}.c2{left:420px}.c3{left:812px}.c4{left:1204px}
+  body.s1 .c1,
+  body.s2 .c1,body.s2 .c2,
+  body.s3 .c1,body.s3 .c2,body.s3 .c3,
+  body.s4 .c1,body.s4 .c2,body.s4 .c3,body.s4 .c4{visibility:visible}
+
+  .badge{position:absolute;top:28px;left:50%;transform:translateX(-50%);
+         background:#1a73e8;color:#fff;font-size:19px;font-weight:500;
+         padding:7px 20px;border-radius:20px;white-space:nowrap;letter-spacing:.2px;}
+  .c4 .badge{background:#174ea6}
+
+  .title{position:absolute;top:86px;width:368px;text-align:center;
+         font-size:31px;line-height:40px;font-weight:500;color:#202124;letter-spacing:-.3px;}
+
+  .panel{position:absolute;top:200px;width:368px;height:674px;
+         background:#e6f0fb;border-radius:16px;}
+
+  .arrows .a1,.arrows .a2,.arrows .a3{visibility:hidden}
+  body.s2 .a1,
+  body.s3 .a1,body.s3 .a2,
+  body.s4 .a1,body.s4 .a2,body.s4 .a3{visibility:visible}
+  .arrows{position:absolute;top:0;left:0}
+</style>
+</head>
+<body class="s4">
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#9aa0a6"/>
+    </marker>
+    <marker id="arRed" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#b60000"/>
+    </marker>
+    <marker id="arBig" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#a7a0c8"/>
+    </marker>
+  </defs>
+</svg>
+
+<div class="wrap">
+
+  <svg class="arrows" width="1600" height="900">
+    <line class="a1" x1="282" y1="46" x2="528" y2="46" stroke="#a7a0c8" stroke-width="3" marker-end="url(#arBig)"/>
+    <line class="a2" x1="674" y1="46" x2="920" y2="46" stroke="#a7a0c8" stroke-width="3" marker-end="url(#arBig)"/>
+    <line class="a3" x1="1066" y1="46" x2="1277" y2="46" stroke="#a7a0c8" stroke-width="3" marker-end="url(#arBig)"/>
+  </svg>
+
+  <!-- ===================== STAGE 1 ===================== -->
+  <div class="col c1">
+    <div class="badge">Stage 1</div>
+    <div class="title">Decentralized<br>Rollout</div>
+    <div class="panel">
+      <svg width="368" height="674" viewBox="0 0 368 674">
+        <!-- environment -->
+        <rect x="24" y="22" width="320" height="54" rx="11" fill="#fff" stroke="#d2e0ef"/>
+        <text x="184" y="46" text-anchor="middle" font-size="16" font-weight="600" fill="#202124">Multi-Agent Environment</text>
+        <text x="184" y="65" text-anchor="middle" font-size="12.5" fill="#5f6368">Overcooked · Pistonball · QA · Code</text>
+
+        <line x1="184" y1="76" x2="184" y2="98" stroke="#9aa0a6" stroke-width="1.6" marker-end="url(#ar)"/>
+        <text x="196" y="92" font-size="12.5" fill="#5f6368">local obs</text>
+
+        <!-- agent cards -->
+        <g>
+          <rect x="24" y="106" width="320" height="82" rx="11" fill="#fff" stroke="#d2e0ef"/>
+          <circle cx="56" cy="147" r="15" fill="#e8f0fe" stroke="#1a73e8" stroke-width="1.6"/>
+          <circle cx="51" cy="145" r="2.2" fill="#1a73e8"/><circle cx="61" cy="145" r="2.2" fill="#1a73e8"/>
+          <path d="M50,153 q6,4 12,0" stroke="#1a73e8" stroke-width="1.5" fill="none"/>
+          <text x="82" y="136" font-size="14.5" font-weight="600" fill="#202124">Agent 1</text>
+          <text x="82" y="155" font-size="12" fill="#1a73e8" font-family="ui-monospace,Menlo,monospace">π<tspan font-size="9" dy="3">1</tspan><tspan font-size="9" dy="-8">text</tspan><tspan dy="5"> </tspan></text>
+          <text x="82" y="173" font-size="12.5" fill="#5f6368">“Prep onions before plating…”</text>
+        </g>
+        <line x1="184" y1="188" x2="184" y2="200" stroke="#c6d4e2" stroke-width="1.6"/>
+        <g>
+          <rect x="24" y="200" width="320" height="82" rx="11" fill="#fff" stroke="#d2e0ef"/>
+          <circle cx="56" cy="241" r="15" fill="#e8f0fe" stroke="#1a73e8" stroke-width="1.6"/>
+          <circle cx="51" cy="239" r="2.2" fill="#1a73e8"/><circle cx="61" cy="239" r="2.2" fill="#1a73e8"/>
+          <path d="M50,247 q6,4 12,0" stroke="#1a73e8" stroke-width="1.5" fill="none"/>
+          <text x="82" y="230" font-size="14.5" font-weight="600" fill="#202124">Agent 2</text>
+          <text x="82" y="249" font-size="12" fill="#1a73e8" font-family="ui-monospace,Menlo,monospace">π<tspan font-size="9" dy="3">2</tspan><tspan font-size="9" dy="-8">text</tspan><tspan dy="5"> </tspan></text>
+          <text x="82" y="267" font-size="12.5" fill="#5f6368">“Wait at the pot, then serve…”</text>
+        </g>
+        <line x1="184" y1="282" x2="184" y2="294" stroke="#c6d4e2" stroke-width="1.6"/>
+        <g>
+          <rect x="24" y="294" width="320" height="82" rx="11" fill="#fff" stroke="#d2e0ef"/>
+          <circle cx="56" cy="335" r="15" fill="#e8f0fe" stroke="#1a73e8" stroke-width="1.6"/>
+          <circle cx="51" cy="333" r="2.2" fill="#1a73e8"/><circle cx="61" cy="333" r="2.2" fill="#1a73e8"/>
+          <path d="M50,341 q6,4 12,0" stroke="#1a73e8" stroke-width="1.5" fill="none"/>
+          <text x="82" y="324" font-size="14.5" font-weight="600" fill="#202124">Agent N</text>
+          <text x="82" y="343" font-size="12" fill="#1a73e8" font-family="ui-monospace,Menlo,monospace">π<tspan font-size="9" dy="3">N</tspan><tspan font-size="9" dy="-8">text</tspan><tspan dy="5"> </tspan></text>
+          <text x="82" y="361" font-size="12.5" fill="#5f6368">scales to N = 20 agents</text>
+        </g>
+
+        <line x1="184" y1="376" x2="184" y2="404" stroke="#9aa0a6" stroke-width="1.6" marker-end="url(#ar)"/>
+        <text x="196" y="398" font-size="12.5" fill="#5f6368">action</text>
+
+        <!-- trajectory -->
+        <rect x="24" y="412" width="320" height="104" rx="11" fill="#fff" stroke="#d2e0ef"/>
+        <text x="184" y="437" text-anchor="middle" font-size="14" font-weight="600" fill="#202124">Episodic Trajectory τ</text>
+        <g font-size="12" fill="#3c4043" text-anchor="middle">
+          <circle cx="62" cy="478" r="15" fill="#f1f5fa" stroke="#c6d4e2"/><text x="62" y="482">s₀</text>
+          <circle cx="123" cy="478" r="15" fill="#f1f5fa" stroke="#c6d4e2"/><text x="123" y="482">a₀</text>
+          <circle cx="184" cy="478" r="15" fill="#f1f5fa" stroke="#c6d4e2"/><text x="184" y="482">s₁</text>
+          <circle cx="245" cy="478" r="15" fill="#f1f5fa" stroke="#c6d4e2"/><text x="245" y="482">a₁</text>
+          <circle cx="306" cy="478" r="15" fill="#f1f5fa" stroke="#c6d4e2"/><text x="306" y="482">s<tspan font-size="9" dy="3">T</tspan></text>
+        </g>
+        <g stroke="#9aa0a6" stroke-width="1.4" marker-end="url(#ar)">
+          <line x1="78" y1="478" x2="103" y2="478"/>
+          <line x1="139" y1="478" x2="164" y2="478"/>
+          <line x1="200" y1="478" x2="225" y2="478"/>
+          <line x1="261" y1="478" x2="286" y2="478"/>
+        </g>
+
+        <!-- note -->
+        <rect x="24" y="540" width="320" height="110" rx="11" fill="#d7e7f8"/>
+        <text x="44" y="570" font-size="13" font-weight="600" fill="#174ea6">Decentralized execution</text>
+        <text x="44" y="594" font-size="12.5" fill="#3c4043">Each agent acts from its own language</text>
+        <text x="44" y="613" font-size="12.5" fill="#3c4043">policy and local observation only —</text>
+        <text x="44" y="632" font-size="12.5" fill="#3c4043">no global state, no shared feedback.</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ===================== STAGE 2 ===================== -->
+  <div class="col c2">
+    <div class="badge">Stage 2</div>
+    <div class="title">Centralized<br>Language Critic</div>
+    <div class="panel">
+      <svg width="368" height="674" viewBox="0 0 368 674">
+        <!-- full trajectory in -->
+        <rect x="24" y="22" width="320" height="66" rx="11" fill="#fff" stroke="#d2e0ef"/>
+        <text x="184" y="44" text-anchor="middle" font-size="13.5" font-weight="600" fill="#202124">Full episode τ (all agents)</text>
+        <g font-size="12" fill="#3c4043" text-anchor="middle">
+          <circle cx="80" cy="68" r="11" fill="#f1f5fa" stroke="#c6d4e2"/><text x="80" y="72">s₀</text>
+          <circle cx="132" cy="68" r="11" fill="#f1f5fa" stroke="#c6d4e2"/><text x="132" y="72">s₁</text>
+          <circle cx="184" cy="68" r="11" fill="#f1f5fa" stroke="#c6d4e2"/><text x="184" y="72">s₂</text>
+          <text x="234" y="72" font-size="13">· · ·</text>
+          <circle cx="288" cy="68" r="11" fill="#f1f5fa" stroke="#c6d4e2"/><text x="288" y="72">s<tspan font-size="9" dy="3">T</tspan></text>
+        </g>
+
+        <line x1="184" y1="88" x2="184" y2="116" stroke="#9aa0a6" stroke-width="1.6" marker-end="url(#ar)"/>
+
+        <!-- critic -->
+        <rect x="52" y="124" width="264" height="92" rx="13" fill="#fff" stroke="#1a73e8" stroke-width="1.8"/>
+        <g transform="translate(84,170)">
+          <circle r="17" fill="#e8f0fe"/>
+          <path d="M0,-11 L2.6,-3 L11,0 L2.6,3 L0,11 L-2.6,3 L-11,0 L-2.6,-3 Z" fill="#1a73e8"/>
+        </g>
+        <text x="112" y="163" font-size="15" font-weight="600" fill="#202124">LLM Critic</text>
+        <text x="112" y="182" font-size="12.5" fill="#5f6368">sees the whole trajectory,</text>
+        <text x="112" y="198" font-size="12.5" fill="#5f6368">attributes the team outcome</text>
+
+        <text x="184" y="238" text-anchor="middle" font-size="12" font-weight="600" fill="#174ea6">causal credit assignment</text>
+
+        <!-- fan out -->
+        <g stroke="#9aa0a6" stroke-width="1.5" fill="none" marker-end="url(#ar)">
+          <path d="M184,248 C184,268 96,262 96,286"/>
+          <path d="M184,248 L184,286"/>
+          <path d="M184,248 C184,268 272,262 272,286"/>
+        </g>
+
+        <!-- credit cards -->
+        <rect x="24" y="296" width="320" height="104" rx="11" fill="#fff" stroke="#d2e0ef"/>
+        <circle cx="48" cy="320" r="9" fill="#fce8e6"/><text x="48" y="324" text-anchor="middle" font-size="12" font-weight="700" fill="#b60000">1</text>
+        <text x="66" y="324" font-size="13.5" font-weight="600" fill="#202124">Credit · Agent 1</text>
+        <text x="40" y="348" font-size="12.5" fill="#b60000" font-weight="600">Poor.</text>
+        <text x="78" y="348" font-size="12.5" fill="#3c4043">Failed to provide the</text>
+        <text x="40" y="366" font-size="12.5" fill="#3c4043">essential items Agent 2 requested,</text>
+        <text x="40" y="384" font-size="12.5" fill="#3c4043">stalling the whole delivery.</text>
+
+        <rect x="24" y="410" width="320" height="104" rx="11" fill="#fff" stroke="#d2e0ef"/>
+        <circle cx="48" cy="434" r="9" fill="#e6f4ea"/><text x="48" y="438" text-anchor="middle" font-size="12" font-weight="700" fill="#137333">2</text>
+        <text x="66" y="438" font-size="13.5" font-weight="600" fill="#202124">Credit · Agent 2</text>
+        <text x="40" y="462" font-size="12.5" fill="#137333" font-weight="600">Good.</text>
+        <text x="82" y="462" font-size="12.5" fill="#3c4043">Correctly identified the</text>
+        <text x="40" y="480" font-size="12.5" fill="#3c4043">missing ingredient and held</text>
+        <text x="40" y="498" font-size="12.5" fill="#3c4043">position — keep this behavior.</text>
+
+        <rect x="24" y="524" width="320" height="50" rx="11" fill="#fff" stroke="#d2e0ef"/>
+        <text x="184" y="546" text-anchor="middle" font-size="12.5" fill="#5f6368">…one structured credit per agent</text>
+        <text x="184" y="564" text-anchor="middle" font-size="12" fill="#1a73e8" font-family="ui-monospace,Menlo,monospace">C<tspan font-size="9" dy="3">i</tspan><tspan font-size="9" dy="-8">text</tspan><tspan dy="5">(τ)</tspan></text>
+
+        <rect x="24" y="588" width="320" height="62" rx="11" fill="#d7e7f8"/>
+        <text x="184" y="613" text-anchor="middle" font-size="13" font-weight="600" fill="#174ea6">89.9% agreement with humans</text>
+        <text x="184" y="634" text-anchor="middle" font-size="12" fill="#3c4043">on who was responsible (70 trajectories)</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ===================== STAGE 3 ===================== -->
+  <div class="col c3">
+    <div class="badge">Stage 3</div>
+    <div class="title">Language<br>Policy Gradient</div>
+    <div class="panel">
+      <svg width="368" height="674" viewBox="0 0 368 674">
+        <!-- credits in -->
+        <g>
+          <rect x="24" y="22" width="152" height="40" rx="9" fill="#fff" stroke="#d2e0ef"/>
+          <text x="100" y="47" text-anchor="middle" font-size="12" fill="#3c4043">Credit · Agent 1</text>
+          <rect x="192" y="22" width="152" height="40" rx="9" fill="#fff" stroke="#d2e0ef"/>
+          <text x="268" y="47" text-anchor="middle" font-size="12" fill="#3c4043">Credit · Agent 2</text>
+        </g>
+
+        <line x1="184" y1="70" x2="184" y2="96" stroke="#9aa0a6" stroke-width="1.6" marker-end="url(#ar)"/>
+
+        <!-- gradient estimator -->
+        <rect x="40" y="104" width="288" height="76" rx="12" fill="#fff" stroke="#1a73e8" stroke-width="1.8"/>
+        <text x="184" y="132" text-anchor="middle" font-size="15" font-weight="600" fill="#202124">Policy Gradient Estimator</text>
+        <text x="184" y="153" text-anchor="middle" font-size="12.5" fill="#5f6368">turns each credit into a language-form</text>
+        <text x="184" y="170" text-anchor="middle" font-size="12.5" fill="#5f6368">update direction — no numeric gradient</text>
+
+        <line x1="184" y1="180" x2="184" y2="206" stroke="#9aa0a6" stroke-width="1.6" marker-end="url(#ar)"/>
+
+        <!-- text gradients -->
+        <rect x="24" y="214" width="320" height="86" rx="11" fill="#fff" stroke="#d2e0ef"/>
+        <text x="40" y="238" font-size="12.5" font-weight="600" fill="#1a73e8" font-family="ui-monospace,Menlo,monospace">Δπ<tspan font-size="9" dy="3">1</tspan><tspan font-size="9" dy="-8">text</tspan><tspan dy="5"> </tspan></text>
+        <text x="40" y="260" font-size="12.5" fill="#3c4043">“Reinforce the role of proactive</text>
+        <text x="40" y="278" font-size="12.5" fill="#3c4043">support and logistics agent…”</text>
+        <text x="40" y="294" font-size="12" fill="#5f6368">↳ one text gradient per trajectory</text>
+
+        <line x1="184" y1="300" x2="184" y2="326" stroke="#9aa0a6" stroke-width="1.6" marker-end="url(#ar)"/>
+        <text x="196" y="320" font-size="12.5" fill="#5f6368">aggregate over K</text>
+
+        <!-- optimizer -->
+        <rect x="40" y="334" width="288" height="76" rx="12" fill="#fff" stroke="#1a73e8" stroke-width="1.8"/>
+        <text x="184" y="362" text-anchor="middle" font-size="15" font-weight="600" fill="#202124">Language Policy Optimizer</text>
+        <text x="184" y="383" text-anchor="middle" font-size="12.5" fill="#5f6368">synthesizes the batch of gradients into</text>
+        <text x="184" y="400" text-anchor="middle" font-size="12.5" fill="#5f6368">one semantic policy update</text>
+
+        <line x1="184" y1="410" x2="184" y2="436" stroke="#b60000" stroke-width="1.8" marker-end="url(#arRed)"/>
+
+        <!-- updated policy -->
+        <rect x="24" y="444" width="320" height="82" rx="11" fill="#fff" stroke="#b60000" stroke-width="1.6"/>
+        <text x="40" y="470" font-size="13.5" font-weight="600" fill="#202124">Updated π<tspan font-size="9" dy="3">1</tspan><tspan font-size="9" dy="-8">text</tspan><tspan dy="5"> </tspan></text>
+        <text x="40" y="492" font-size="12.5" fill="#3c4043">“Stage onions and plates for Agent 2</text>
+        <text x="40" y="510" font-size="12.5" fill="#3c4043">before starting your own pot.”</text>
+
+        <!-- torchrl analogy -->
+        <rect x="24" y="546" width="320" height="104" rx="11" fill="#d7e7f8"/>
+        <text x="44" y="572" font-size="13" font-weight="600" fill="#174ea6">Reads like TorchRL</text>
+        <g font-size="12.5" font-family="ui-monospace,Menlo,monospace">
+          <text x="44" y="596" fill="#5f6368">ProbabilisticActor</text><text x="196" y="596" fill="#9aa0a6">→</text><text x="216" y="596" fill="#1a73e8">LLMActor</text>
+          <text x="44" y="616" fill="#5f6368">ValueOperator</text><text x="196" y="616" fill="#9aa0a6">→</text><text x="216" y="616" fill="#1a73e8">LLMCritic</text>
+          <text x="44" y="636" fill="#5f6368">Adam</text><text x="196" y="636" fill="#9aa0a6">→</text><text x="216" y="636" fill="#1a73e8">LangPolicyOpt</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- ===================== STAGE 4 ===================== -->
+  <div class="col c4">
+    <div class="badge">Final Output</div>
+    <div class="title">Self-Evolved<br>Coordination</div>
+    <div class="panel">
+      <svg width="368" height="674" viewBox="0 0 368 674">
+        <text x="24" y="42" font-size="13" font-weight="600" fill="#174ea6">Emergent role specialization</text>
+        <text x="24" y="61" font-size="12.5" fill="#5f6368">from identical starting prompts</text>
+
+        <rect x="24" y="74" width="320" height="86" rx="11" fill="#fff" stroke="#d2e0ef"/>
+        <circle cx="52" cy="103" r="13" fill="#e8f0fe" stroke="#1a73e8" stroke-width="1.5"/>
+        <text x="52" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#1a73e8">1</text>
+        <text x="76" y="100" font-size="14" font-weight="600" fill="#202124">Agent 1 → Implementer</text>
+        <text x="40" y="127" font-size="12.5" fill="#3c4043">Writes structured, robust solutions;</text>
+        <text x="40" y="145" font-size="12.5" fill="#3c4043">owns clarity and efficiency.</text>
+
+        <rect x="24" y="172" width="320" height="86" rx="11" fill="#fff" stroke="#d2e0ef"/>
+        <circle cx="52" cy="201" r="13" fill="#fce8e6" stroke="#b60000" stroke-width="1.5"/>
+        <text x="52" y="206" text-anchor="middle" font-size="12" font-weight="700" fill="#b60000">2</text>
+        <text x="76" y="198" font-size="14" font-weight="600" fill="#202124">Agent 2 → Reviewer</text>
+        <text x="40" y="225" font-size="12.5" fill="#3c4043">Hunts edge cases and weaknesses;</text>
+        <text x="40" y="243" font-size="12.5" fill="#3c4043">refines before submission.</text>
+
+        <text x="24" y="292" font-size="13" font-weight="600" fill="#174ea6">Best on every benchmark</text>
+
+        <g>
+          <rect x="24" y="306" width="152" height="62" rx="10" fill="#fff" stroke="#d2e0ef"/>
+          <text x="100" y="332" text-anchor="middle" font-size="21" font-weight="700" fill="#b60000">60.2</text>
+          <text x="100" y="352" text-anchor="middle" font-size="12.5" fill="#5f6368">HotPotQA</text>
+
+          <rect x="192" y="306" width="152" height="62" rx="10" fill="#fff" stroke="#d2e0ef"/>
+          <text x="268" y="332" text-anchor="middle" font-size="21" font-weight="700" fill="#b60000">56.0</text>
+          <text x="268" y="352" text-anchor="middle" font-size="12.5" fill="#5f6368">MATH</text>
+
+          <rect x="24" y="378" width="152" height="62" rx="10" fill="#fff" stroke="#d2e0ef"/>
+          <text x="100" y="404" text-anchor="middle" font-size="21" font-weight="700" fill="#b60000">73.2</text>
+          <text x="100" y="424" text-anchor="middle" font-size="12.5" fill="#5f6368">HumanEval</text>
+
+          <rect x="192" y="378" width="152" height="62" rx="10" fill="#fff" stroke="#d2e0ef"/>
+          <text x="268" y="404" text-anchor="middle" font-size="21" font-weight="700" fill="#b60000">148.9</text>
+          <text x="268" y="424" text-anchor="middle" font-size="12.5" fill="#5f6368">Forced Coord.</text>
+        </g>
+
+        <rect x="24" y="456" width="320" height="76" rx="11" fill="#fff" stroke="#d2e0ef"/>
+        <text x="40" y="481" font-size="13" font-weight="600" fill="#202124">Scales where baselines collapse</text>
+        <text x="40" y="503" font-size="12.5" fill="#3c4043">Stays positive on Pistonball at N = 20</text>
+        <text x="40" y="521" font-size="12.5" fill="#3c4043">(+22.9) while TextGrad degrades.</text>
+
+        <rect x="24" y="548" width="320" height="102" rx="11" fill="#d7e7f8"/>
+        <text x="44" y="576" font-size="13" font-weight="600" fill="#174ea6">Credit is what makes it work</text>
+        <text x="44" y="600" font-size="12.5" fill="#3c4043">Swap per-agent credits for one shared</text>
+        <text x="44" y="619" font-size="12.5" fill="#3c4043">global reward and Forced Coord. drops</text>
+        <text x="44" y="638" font-size="12.5" fill="#3c4043">148.9 → 82.7.</text>
+      </svg>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var m = location.search.match(/stage=(\d)/);
+  document.body.className = 's' + (m ? m[1] : '4');
+</script>
+</body>
+</html>

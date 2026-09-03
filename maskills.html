@@ -153,7 +153,7 @@
 <section class="section" style="padding-top: 0;">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
+      <div class="column is-full-width">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
@@ -236,6 +236,21 @@
     <div class="columns is-centered">
       <div class="column is-full-width">
         <h2 class="title is-3">How does MASkills work?</h2>
+
+        <figure class="paper-figure">
+          <picture>
+            <source srcset="./static/images/maskills/pipeline_stages.webp" type="image/webp">
+            <img src="./static/images/maskills/pipeline_stages.gif"
+                 alt="Animated walkthrough of the MASkills pipeline: multi-agent skill execution, skill credit assignment, stabilized language gradient, and the evolved skill library.">
+          </picture>
+          <figcaption>
+            <strong>The MASkills loop, stage by stage.</strong> Agents execute against a skill library and log which
+            skill fired when; a critic assigns credit to individual skill invocations by counterfactual comparison;
+            edit directions are aggregated hierarchically and smoothed with momentum; and four operators rewrite the
+            library under a validation-and-rollback gate.
+          </figcaption>
+        </figure>
+
         <div class="content has-text-justified">
           <p>
             MASkills performs policy improvement directly in the agents' <strong>skill space</strong> rather than their
@@ -477,10 +492,16 @@
           <table class="results">
             <thead>
               <tr>
-                <th>Topology</th><th>HotpotQA F1</th>
-                <th>LoCoMo-SH F1</th><th>LoCoMo-SH BLEU</th>
-                <th>LoCoMo-MH F1</th><th>LoCoMo-MH BLEU</th>
-                <th>GAIA-L1</th><th>GAIA-L2</th><th>GAIA-Avg</th>
+                <th rowspan="2">Topology</th>
+                <th rowspan="2">HotpotQA</th>
+                <th colspan="2">LoCoMo single-hop</th>
+                <th colspan="2">LoCoMo multi-hop</th>
+                <th colspan="3">GAIA</th>
+              </tr>
+              <tr class="subhead">
+                <th>F1</th><th>BLEU</th>
+                <th>F1</th><th>BLEU</th>
+                <th>L1</th><th>L2</th><th>Avg</th>
               </tr>
             </thead>
             <tbody>

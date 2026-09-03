@@ -30,6 +30,54 @@ Figures are PNGs rendered from the papers' PDF sources at 160 dpi:
 pdftocairo -png -r 160 -singlefile figures/<name>.pdf static/images/<project>/<name>
 ```
 
+## Pipeline animations
+
+`static/images/<project>/pipeline_stages.*` is a four-stage reveal of each method's
+loop (3s per stage, 10s on the finished diagram), in the style of Google's staged
+architecture animations. The frames are drawn in HTML/SVG, not exported from the paper:
+
+```
+tools/langmarl_stages.html   source for the LangMARL animation
+tools/maskills_stages.html   source for the MASkills animation
+tools/build_stage_gifs.py    screenshots ?stage=1..4 and assembles the GIFs
+```
+
+Each source page renders all four stage columns and reads `?stage=N` to decide how many
+are visible, so you can open it in a browser to edit a single stage. To regenerate after
+an edit:
+
+```bash
+python3 tools/build_stage_gifs.py
+```
+
+Two files come out of each build, and the pages load them through a `<picture>`:
+
+| | Resolution | Colours | Size | Role |
+| --- | --- | --- | --- | --- |
+| `.webp` | 3200×1800 | 24-bit | ~315 KB | what browsers actually load |
+| `.gif` | 1600×900 | 256, dithered | ~540 KB | fallback, and the portable copy for slides |
+
+The frames are captured with `--force-device-scale-factor=2`, so the WebP carries over 3×
+the pixels of its 960 px display slot and stays sharp on retina screens. GIF's 256-colour
+ceiling is why it is the fallback rather than the primary — at full resolution it would be
+much larger without looking better.
+
+## Column widths
+
+Every content column on every page is one width: `.container.is-max-desktop` with a single
+`.column.is-full-width` inside, giving a 984 px content box (960 px for figures) at desktop
+sizes. Two things break that, and both are guarded in `static/css/site.css`:
+
+- **Wide children stretch their column.** Bulma columns are flex items and default to
+  `min-width: auto`, so a table or image wider than the column silently widens it — and that
+  whole section then sits wider than the rest of the page. `.columns > .column { min-width: 0 }`
+  pins the column to its flex basis and lets the wide child scroll inside `.table-wrap`.
+- **Figures that break out of the column** drag the column with them, for the same reason.
+  Keep figures at the standard width; do not reintroduce a full-bleed figure class.
+
+If a results table is too wide for 960 px, group its headers with `colspan` (see the
+coordination-topology table in `maskills.html`) rather than widening the column.
+
 ## Before publishing
 
 Both papers' arXiv buttons are commented out in the hero of `langmarl.html` and

@@ -234,3 +234,41 @@ section#BibTeX pre {
   color: #fff;
   font-weight: 600;
 }
+
+/* Pipeline animations share the standard figure width — see figure.paper-figure. */
+.paper-figure picture img {
+  border: 1px solid #ececec;
+  border-radius: 10px;
+}
+
+/* ---------- Keep every content column the same width ---------- */
+
+/* Bulma columns are flex items, which default to min-width:auto — so a child
+   wider than the column (a 9-column results table, a big figure) silently
+   stretches the column past the container and that section ends up wider than
+   the rest of the page. Pinning min-width:0 makes the column keep its flex
+   basis and lets the wide child scroll inside its own .table-wrap instead. */
+.columns > .column {
+  min-width: 0;
+}
+
+/* Grouped table headers: only the last header row carries the rule, and the
+   spanning labels above it sit closer to the columns they cover. */
+table.results thead tr:not(:last-child) th {
+  border-bottom: 1px solid #d0d0d0;
+  font-weight: 500;
+  color: #5f6368;
+  padding-bottom: 0.2rem;
+}
+
+table.results thead tr:not(:last-child) th[rowspan] {
+  border-bottom: none;
+  vertical-align: bottom;
+  color: #363636;
+  font-weight: 600;
+}
+
+table.results thead tr.subhead th {
+  font-weight: 600;
+  padding-top: 0.2rem;
+}
