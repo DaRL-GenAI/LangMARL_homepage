@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="MASkills: Continual Skills Optimization for Multi-Agent LLM Systems">
+  <meta name="keywords" content="MASkills, Agent Skills, Continual Learning, Multi-Agent, LLM Agents, Credit Assignment">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MASkills: Continual Skills Optimization for Multi-Agent LLM Systems</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/site.css">
+  <link rel="icon" href="./static/images/sun_devil.webp">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://labs.engineering.asu.edu/hw/">
+        <span class="icon"><i class="fas fa-home"></i></span>
+      </a>
+      <a class="navbar-item" href="./index.html">Overview</a>
+      <a class="navbar-item" href="./langmarl.html">LangMARL</a>
+      <a class="navbar-item" href="./maskills.html"><strong>MASkills</strong></a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">More Research</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://darl-genai.github.io/instructional_agents_homepage/">
+            Instructional Agents: Multi-Agent Instructional Design
+          </a>
+          <a class="navbar-item" href="https://github.com/hyan-yao/comal">
+            CoMAL: Collaborative Multi-Agent LLMs for Mixed-Autonomy Traffic
+          </a>
+          <a class="navbar-item" href="https://www.youtube.com/watch?v=QOYWah7--nA">
+            Open-TI: Open Traffic Intelligence with Augmented Language Models
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">MASkills: Continual Skills Optimization for Multi-Agent LLM Systems</h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=I9aR8d8AAAAJ">Huaiyuan Yao</a><sup>1</sup>,</span>
+            <span class="author-block">Xiaoou Liu<sup>1</sup>,</span>
+            <span class="author-block">Charles Fleming<sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://tianlong-chen.github.io/">Tianlong Chen</a><sup>3</sup>,</span>
+            <span class="author-block">
+              <a href="https://labs.engineering.asu.edu/hw/">Hua Wei</a><sup>1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Arizona State University,</span>
+            <span class="author-block"><sup>2</sup>Cisco Research,</span>
+            <span class="author-block"><sup>3</sup>University of North Carolina at Chapel Hill</span>
+          </div>
+
+          <p class="is-size-5 has-text-centered"
+             style="color:#b60000; font-weight:600; display:block; margin-top: 0.75rem;">
+            Accepted to EMNLP 2026 Findings
+          </p>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- arXiv link. Fill in once the preprint is posted.
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/XXXX.XXXXX"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              -->
+              <span class="link-block">
+                <a href="https://github.com/DaRL-GenAI/MASkills"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="./langmarl.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-project-diagram"></i></span>
+                  <span>Built on: LangMARL</span>
+                </a>
+              </span>
+            </div>
+          </div>
+
+          <p class="is-size-5 has-text-centered"
+             style="color:#555; font-style: italic; display:block; margin-top: 0.75rem;">
+            Don't just remember what happened — learn a skill you can invoke again.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <figure class="paper-figure figure-framed">
+      <img src="./static/images/maskills/pipeline.png"
+           alt="MASkills pipeline: multi-agent skill execution, fine-grained skill credit assignment, stabilized language gradient descent, and skill evolution.">
+      <figcaption>
+        <strong>The MASkills loop.</strong> (1) Agents execute with a skill library, logging which skill each invoked at
+        each step. (2) A language critic attributes the team outcome to individual <em>skill invocations</em> as well as
+        to agents. (3) Credits become edit directions, aggregated hierarchically over trajectories, skills, agents, and
+        topologies, then smoothed with momentum. (4) Four operators — refinement, induction, consolidation, pruning —
+        rewrite the skill library, gated by held-out validation and rollback.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+
+<!-- Abstract -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            LLM-based multi-agent systems have shown strong performance on complex tasks, yet continual improvement from
+            interaction experience remains challenging. Existing self-reflection methods build experience memories, but
+            memories are mostly hard to invoke, refine, or scale, while <strong>agent skills</strong> offer a more
+            actionable unit: structured procedural knowledge that specifies when to act, how to act, and which resources
+            or tools to use.
+          </p>
+          <p>
+            We introduce <strong>MASkills</strong>, a continual learning framework that optimizes multi-agent LLM systems
+            through agent skills. MASkills presents a new agent-optimization pipeline that integrates skill-conditioned
+            credit assignment, hierarchical credit aggregation, and momentum-smoothed optimization, enabling agent skill
+            libraries to evolve through refinement, induction, consolidation, and pruning.
+          </p>
+          <p>
+            Experiments on HotpotQA, LoCoMo, and GAIA demonstrate the effectiveness of MASkills across multiple agentic
+            tasks. Our code is available at
+            <a href="https://github.com/DaRL-GenAI/MASkills">github.com/DaRL-GenAI/MASkills</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Why -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Why skills, not memories?</h2>
+        <div class="content has-text-justified">
+          <p>
+            The standard recipe for a self-improving agent is self-reflection into an experience memory. Memories do
+            preserve useful experience, but they are a weak basis for continual improvement: they record
+            <em>what happened</em> in past trajectories rather than <em>which action policy to reuse</em>, they lack
+            reliable invocation conditions, and as the store grows, useful lessons get buried under noisy, redundant, and
+            stale free-form records.
+          </p>
+          <p>
+            A <strong>skill</strong> is a better unit. It is a structured package of procedural knowledge — a
+            <code>skill.yaml</code> descriptor, a <code>SKILL.md</code> body, and auxiliary resources — that tells an
+            agent when to invoke it, how to act, and which tools to use. Agents discover skills from lightweight
+            descriptions, load the details on demand, and refine them as experience accumulates. Recent work develops
+            such reusable abstractions, but stays predominantly <em>single-agent</em>, ignoring the coordination dynamics
+            that determine team-level utility.
+          </p>
+        </div>
+
+        <h3 class="title is-4">Three challenges MASkills has to solve</h3>
+        <ul class="keypoints content">
+          <li>
+            <strong>Skill-level credit assignment.</strong> A team reward must be attributed not only to the right agent
+            but to the right <em>skill</em>. A skill may fire at only a few timesteps, and its effect is entangled with
+            other agents' behaviors. Team-level — or even agent-level — feedback cannot say which skill to improve.
+          </li>
+          <li>
+            <strong>Noisy, heterogeneous interaction.</strong> Language feedback drawn from trajectories is inconsistent
+            and unstable across learning cycles. Worse, systems run under very different coordination structures —
+            centralized planning, decentralized peer chat, hierarchical critique — each with its own pattern of credit
+            propagation.
+          </li>
+          <li>
+            <strong>Discrete, high-risk updates.</strong> Skills are language artifacts, not parameter vectors. Evolving
+            them means open-ended structural edits rather than smooth numerical steps, and a bad edit directly changes
+            the agent's effective action space.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- How -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">How does MASkills work?</h2>
+        <div class="content has-text-justified">
+          <p>
+            MASkills performs policy improvement directly in the agents' <strong>skill space</strong> rather than their
+            parameter space, following the language-space policy-gradient structure of TextGrad and
+            <a href="./langmarl.html">LangMARL</a>. Each of its three stages answers one of the challenges above.
+          </p>
+        </div>
+
+        <h3 class="title is-4">1. Skill-conditioned credit assignment</h3>
+        <div class="content has-text-justified">
+          <p>
+            Skills are exposed as callable tools, so every invocation is visible in the execution log as a skill trace
+            <em>&xi;<sub>i</sub></em>. For each skill <em>k</em> that agent <em>i</em> actually invoked along a
+            trajectory, a centralized language critic produces a structured credit
+            <em>C<sub>i</sub><sup>text</sup>(&tau;, k)</em> by contrasting the timesteps where <em>k</em> was active
+            against the counterfactual where it was not — explaining whether the skill helped coordination, was
+            redundant, caused a failure, or should be generalized. The critic also emits an <em>agent-level residual
+            credit</em> for effects no single skill explains; that residual is what signals when a genuinely new skill is
+            needed.
+          </p>
+        </div>
+
+        <h3 class="title is-4">2. Stabilized language gradient descent</h3>
+        <div class="content has-text-justified">
+          <p>
+            Raw critiques are noisy and often contradictory. MASkills first converts each credit into a trajectory-level
+            <em>edit direction</em> <em>g<sub>i</sub>(&tau;, k)</em> — a structured natural-language patch proposing
+            refinements, adjustments, generalizations, or removals. An LLM aggregator then merges these recursively
+            across four axes at once — <strong>trajectories &rarr; skills &rarr; agents &rarr; topologies</strong> —
+            performing pattern merging, conflict resolution, and prevalence weighting. Because aggregation is topological,
+            centralized, decentralized-peer, and hierarchical systems are just three ways of rooting the same step, and
+            everything downstream is unchanged.
+          </p>
+          <p>
+            Finally, updates carry <strong>momentum</strong>: each edit combines the current aggregated gradient with the
+            previous cycle's, so transient or contradictory critiques are suppressed and persistent improvements survive.
+            This is the language-space analogue of momentum gradient descent.
+          </p>
+        </div>
+
+        <h3 class="title is-4">3. Four skill-evolution operators</h3>
+        <div class="columns is-multiline" style="margin-top: 0.5rem;">
+          <div class="column is-half">
+            <div class="callout content">
+              <p><strong>Refinement.</strong> Useful but imperfect skills get localized, diff-style edits that touch only
+              the regions the aggregated feedback implicates, preserving unrelated procedural structure and previously
+              validated behavior.</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="callout content">
+              <p><strong>Induction.</strong> When failures persist that no existing skill can address, a new skill is
+              proposed from the hard trajectories plus the accumulated edit directions — adding a genuinely new
+              procedural abstraction rather than patching an old one.</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="callout content">
+              <p><strong>Consolidation.</strong> Functionally overlapping skills are merged into higher-level macro
+              skills, synthesizing shared behavioral structure and keeping the library from fragmenting.</p>
+            </div>
+          </div>
+          <div class="column is-half">
+            <div class="callout content">
+              <p><strong>Pruning.</strong> Skills whose momentum-stabilized utility stays negative, redundant, unstable,
+              or negligible are removed, bounding the growth of the skill space.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="content has-text-justified">
+          <p>
+            Every candidate edit is evaluated on a <strong>held-out validation set</strong> before it is committed, with
+            all other agents' skills held fixed. An update is accepted only if validation return does not drop by more
+            than a tolerance &delta; that absorbs rollout noise; otherwise it is <strong>rolled back</strong>. Momentum
+            plays the role of variance reduction; validation and rollback play the role of a trust region.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Results -->
+<section class="section" style="padding-top: 0;" id="results">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Does it work?</h2>
+        <div class="content has-text-justified">
+          <p>
+            All tasks are instantiated as cooperative Dec-POMDPs: a team of role-specialized LLM agents (retrieval,
+            verification, planning, memory tracking, tool use, decision making) interacts under decentralized execution
+            toward a shared team objective. GPT-5.1 serves as the optimizer backbone; GPT-4o-mini (HotpotQA, LoCoMo) and
+            Qwen2.5-7B (GAIA) act as the execution backbones.
+          </p>
+        </div>
+
+        <h3 class="title is-4">Multi-hop reasoning &mdash; HotpotQA</h3>
+        <div class="table-wrap">
+          <table class="results">
+            <colgroup><col><col><col><col><col><col><col><col><col class="ours-col"></colgroup>
+            <thead>
+              <tr>
+                <th>Method</th><th>IO</th><th>CoT</th><th>CoT-SC</th><th>MedPrompt</th>
+                <th>MultiPersona</th><th>Self-Refine</th><th>ADAS</th><th>MASkills</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>F1</td><td>68.1</td><td>67.9</td><td>68.9</td><td>68.3</td>
+                <td>69.2</td><td>60.8</td><td>64.5</td><td class="ours">76.3</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">MASkills improves multi-hop reasoning and evidence integration over prompting-based and multi-agent reasoning baselines.</p>
+
+        <div class="columns">
+          <div class="column is-6">
+            <h3 class="title is-4">Long-horizon memory &mdash; LoCoMo</h3>
+            <div class="table-wrap">
+              <table class="results">
+                <thead>
+                  <tr><th>Method</th><th>SH-F1</th><th>SH-BLEU</th><th>MH-F1</th><th>MH-BLEU</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>MemoryBank</td><td>5.00</td><td>4.77</td><td>5.56</td><td>5.94</td></tr>
+                  <tr><td>ReadAgent</td><td>9.15</td><td>6.48</td><td>5.31</td><td>5.12</td></tr>
+                  <tr><td>LoCoMo</td><td>25.02</td><td>19.75</td><td>12.04</td><td>11.16</td></tr>
+                  <tr><td>MemGPT</td><td>26.65</td><td>17.72</td><td>9.15</td><td>7.44</td></tr>
+                  <tr>
+                    <td><strong>MASkills</strong></td>
+                    <td class="ours">27.61</td><td class="ours">21.30</td>
+                    <td class="ours">17.22</td><td class="ours">12.87</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-note">SH = single-hop, MH = multi-hop memory queries.</p>
+          </div>
+
+          <div class="column is-6">
+            <h3 class="title is-4">General AI assistants &mdash; GAIA</h3>
+            <div class="table-wrap">
+              <table class="results">
+                <thead>
+                  <tr><th>Framework</th><th>L1</th><th>L2</th><th>L3</th><th>Avg.</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Base</td><td>12.8</td><td>3.8</td><td>0.0</td><td>6.8</td></tr>
+                  <tr><td>Search-o1</td><td>23.1</td><td>17.3</td><td>0.0</td><td>17.5</td></tr>
+                  <tr><td>Vanilla ReAct</td><td>28.2</td><td>15.3</td><td>0.0</td><td>18.4</td></tr>
+                  <tr><td>R1-Searcher</td><td>28.2</td><td>19.2</td><td><strong>8.3</strong></td><td>20.4</td></tr>
+                  <tr>
+                    <td><strong>MASkills</strong></td>
+                    <td class="ours">35.3</td><td class="ours">22.6</td><td>0.0</td><td class="ours">23.3</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-note">MASkills leads on average and on L1/L2, reflecting stronger planning, decomposition, and tool use.</p>
+          </div>
+        </div>
+
+        <figure class="paper-figure">
+          <img src="./static/images/maskills/training_curves.png"
+               alt="MASkills training curves across benchmarks with validation-based skill update decisions.">
+          <figcaption>
+            <strong>Training dynamics.</strong> Performance across benchmarks as the skill library evolves, with each
+            update gated by the validation-based accept/rollback rule.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- RQ2 -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Are the learned skills actually reusable?</h2>
+        <div class="content has-text-justified">
+          <p>
+            Two checks. First, are evolved skills better than skills an LLM just writes when asked? Prompt-generated
+            skills turn out to give only marginal gains over prompting the agents directly, whereas continually optimized
+            skills produce substantial improvements on both LoCoMo and GAIA — iterative, trajectory-driven refinement
+            yields much higher-quality procedural abstractions than one-shot generation.
+          </p>
+          <p>
+            Second, do they transfer? We move skill libraries learned in one environment into unseen target tasks with
+            <strong>no additional optimization</strong>. Transferred skills improve downstream performance across every
+            source–target pair tested: skills optimized on GAIA push HotpotQA past strong prompting baselines like CoT
+            and MultiPersona, and LoCoMo-derived skills improve long-horizon memory reasoning. MASkills is capturing
+            reusable behavioral patterns, not task-specific prompting heuristics.
+          </p>
+        </div>
+
+        <figure class="paper-figure">
+          <img src="./static/images/maskills/transfer.png"
+               alt="Skill quality comparison against no-skill and prompt-generated baselines, plus cross-task skill transfer results.">
+          <figcaption>
+            <strong>Skill quality and transferability.</strong> (a) Evolved skills vs. prompt-generated skills vs. no
+            skills, on LoCoMo and GAIA. (b) Cross-task transfer: skills learned in one environment generalize to unseen
+            target tasks.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- RQ3 -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">How robust is it?</h2>
+
+        <h3 class="title is-4">Coordination topology</h3>
+        <div class="content has-text-justified">
+          <p>
+            We run MASkills under centralized, hierarchical, and decentralized-peer structures with the optimization
+            pipeline untouched. It stays competitive throughout — the framework is not coupled to any one orchestration
+            structure. Interestingly, the <em>best</em> topology is strongly task-dependent. HotpotQA and GAIA favor
+            decentralized peers, which benefit from diverse exploration and independent retrieval or tool trajectories.
+            LoCoMo favors centralization, especially for multi-hop memory: a shared global state reduces memory
+            fragmentation across sessions and keeps long-horizon reasoning coherent. Hierarchical coordination lands in
+            between.
+          </p>
+        </div>
+
+        <div class="table-wrap">
+          <table class="results">
+            <thead>
+              <tr>
+                <th>Topology</th><th>HotpotQA F1</th>
+                <th>LoCoMo-SH F1</th><th>LoCoMo-SH BLEU</th>
+                <th>LoCoMo-MH F1</th><th>LoCoMo-MH BLEU</th>
+                <th>GAIA-L1</th><th>GAIA-L2</th><th>GAIA-Avg</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Centralized</td><td>72.46</td>
+                <td class="ours">27.68</td><td>20.76</td>
+                <td class="ours">22.27</td><td class="ours">17.70</td>
+                <td>17.65</td><td>11.54</td><td>11.76</td>
+              </tr>
+              <tr>
+                <td>Hierarchical</td><td>71.86</td>
+                <td>27.55</td><td>20.85</td>
+                <td>22.03</td><td>17.62</td>
+                <td>20.59</td><td>11.54</td><td>12.75</td>
+              </tr>
+              <tr>
+                <td>Decentralized Peer</td><td class="ours">76.30</td>
+                <td>27.61</td><td class="ours">21.30</td>
+                <td>17.22</td><td>12.87</td>
+                <td class="ours">35.30</td><td class="ours">22.60</td><td class="ours">23.30</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Performance under different coordination topologies; best per column in red.</p>
+
+        <div class="columns is-vcentered" style="margin-top: 1rem;">
+          <div class="column is-5">
+            <figure class="paper-figure">
+              <img src="./static/images/maskills/backbone.png" alt="MASkills performance across LLM backbones.">
+              <figcaption>
+                <strong>Backbone generalization.</strong> MASkills stays competitive across proprietary and open-weight
+                model families. Stronger reasoning models do better on long-context and agentic tasks, but open-weight
+                backbones still perform solidly inside the framework.
+              </figcaption>
+            </figure>
+          </div>
+          <div class="column is-7">
+            <h3 class="title is-4">Ablation</h3>
+            <div class="table-wrap">
+              <table class="results">
+                <thead>
+                  <tr><th>Method</th><th>LoCoMo-MH</th><th>GAIA</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td><strong>MASkills (Full)</strong></td><td class="ours">17.2</td><td class="ours">23.3</td></tr>
+                  <tr><td>&nbsp;&nbsp;w/o Skill credit assignment</td><td>14.2</td><td>17.1</td></tr>
+                  <tr><td>&nbsp;&nbsp;w/o Momentum smoothing</td><td>16.4</td><td>21.9</td></tr>
+                  <tr><td>&nbsp;&nbsp;w/o Validation rollback</td><td>6.6</td><td>13.5</td></tr>
+                  <tr><td>&nbsp;&nbsp;w/o Consolidation / pruning</td><td>13.9</td><td>13.0</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="content has-text-justified" style="font-size: 0.95rem;">
+              <p>
+                Every component contributes. <strong>Validation rollback matters most</strong> — without it, LoCoMo-MH
+                collapses from 17.2 to 6.6, confirming that reverting unstable edits is what prevents performance
+                collapse during iterative optimization. Skill-conditioned credit assignment is next, followed by
+                consolidation/pruning and momentum smoothing.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Limitations -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Limitations and what's next</h2>
+        <div class="content has-text-justified">
+          <p>
+            Our experiments focus on cooperative settings with relatively fixed roles and communication topologies;
+            dynamic, adversarial, and open-world environments remain underexplored. Extending MASkills to adaptive
+            organizational structures, competitive multi-agent games, and large-scale decentralized coordination is
+            natural future work.
+          </p>
+          <p>
+            As the skill library keeps expanding, scalability challenges emerge in retrieval, consolidation, and
+            coordination efficiency. Hierarchical skill organization, retrieval compression, and lifelong-learning
+            mechanisms are promising directions for efficient long-term skill evolution at scale.
+          </p>
+          <p>
+            <strong>Ethics.</strong> Automatically evolved skills can amplify undesirable behaviors inherited from the
+            underlying LLMs — factual errors, social biases, unsafe tool use, overconfident reasoning. Held-out
+            validation, rollback, consolidation, and pruning mitigate this, but they are not a substitute for human
+            oversight in high-stakes applications. Deployments that learn from user interaction should follow strict
+            privacy practices and maintain transparent audit logs of skill modifications.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{yao2026maskills,
+    title={MASkills: Continual Skills Optimization for Multi-Agent LLM Systems},
+    author={Yao, Huaiyuan and Liu, Xiaoou and Fleming, Charles and Chen, Tianlong and Wei, Hua},
+    booktitle={Findings of the Association for Computational Linguistics: EMNLP 2026},
+    year={2026},
+    url={https://github.com/DaRL-GenAI/MASkills},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            The work was partially supported by Cisco Faculty Award, Amazon Research Award, and NSF awards #2442477,
+            #2550203, #2616632, #2623317, #2536297, and #2613637. The views and conclusions in this paper should not be
+            interpreted as representing any funding agencies.
+          </p>
+          <p>
+            This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 License</a>.
+            You are free to borrow the <a href="https://github.com/nerfies/nerfies.github.io">source code</a> of this
+            website; we just ask that you link back to this page in the footer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

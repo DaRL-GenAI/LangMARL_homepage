@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="LangMARL: Natural Language Multi-Agent Reinforcement Learning via Semantic Credit Assignment">
+  <meta name="keywords" content="LangMARL, Multi-Agent, MARL, Credit Assignment, LLM Agents, Text Gradient">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LangMARL: Natural Language Multi-Agent Reinforcement Learning via Semantic Credit Assignment</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/site.css">
+  <link rel="icon" href="./static/images/sun_devil.webp">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://labs.engineering.asu.edu/hw/">
+        <span class="icon"><i class="fas fa-home"></i></span>
+      </a>
+      <a class="navbar-item" href="./index.html">Overview</a>
+      <a class="navbar-item" href="./langmarl.html"><strong>LangMARL</strong></a>
+      <a class="navbar-item" href="./maskills.html">MASkills</a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">More Research</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://darl-genai.github.io/instructional_agents_homepage/">
+            Instructional Agents: Multi-Agent Instructional Design
+          </a>
+          <a class="navbar-item" href="https://github.com/hyan-yao/comal">
+            CoMAL: Collaborative Multi-Agent LLMs for Mixed-Autonomy Traffic
+          </a>
+          <a class="navbar-item" href="https://www.youtube.com/watch?v=QOYWah7--nA">
+            Open-TI: Open Traffic Intelligence with Augmented Language Models
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">LangMARL: Natural Language Multi-Agent Reinforcement Learning via Semantic Credit Assignment</h1>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=I9aR8d8AAAAJ">Huaiyuan Yao</a><sup>1*</sup>,</span>
+            <span class="author-block">
+              <a href="https://longchaoda.github.io/LongchaoDa.github.io/">Longchao Da</a><sup>1*</sup>,</span>
+            <span class="author-block">Xiaoou Liu<sup>1</sup>,</span>
+            <span class="author-block">Charles Fleming<sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://tianlong-chen.github.io/">Tianlong Chen</a><sup>3</sup>,</span>
+            <span class="author-block">
+              <a href="https://labs.engineering.asu.edu/hw/">Hua Wei</a><sup>1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Arizona State University,</span>
+            <span class="author-block"><sup>2</sup>Cisco Research,</span>
+            <span class="author-block"><sup>3</sup>University of North Carolina at Chapel Hill</span>
+          </div>
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal Contribution</span>
+          </div>
+
+          <p class="is-size-5 has-text-centered"
+             style="color:#b60000; font-weight:600; display:block; margin-top: 0.75rem;">
+            Accepted to EMNLP 2026 Main Conference
+          </p>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- arXiv link. Fill in once the preprint is posted.
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/XXXX.XXXXX"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              -->
+              <span class="link-block">
+                <a href="https://github.com/DaRL-GenAI/LangMARL"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://langmarl-tutorial.readthedocs.io/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-book"></i></span>
+                  <span>Tutorial</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="./maskills.html"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-cubes"></i></span>
+                  <span>Follow-up: MASkills</span>
+                </a>
+              </span>
+            </div>
+          </div>
+
+          <p class="is-size-5 has-text-centered"
+             style="color:#555; font-style: italic; display:block; margin-top: 0.75rem;">
+            Credit assignment is the missing piece in self-evolving multi-agent LLM systems.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Teaser -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <figure class="paper-figure figure-framed">
+      <img src="./static/images/langmarl/challenge.png"
+           alt="Global evaluation cannot pinpoint which agent is responsible; LangMARL decomposes team outcome into agent-specific credits.">
+      <figcaption>
+        <strong>Challenges in multi-agent credit assignment.</strong> Global evaluation tells the team that
+        the order failed, but not <em>who</em> should change. Both agents produce vague, defensive reflections.
+        LangMARL instead decomposes team performance into structured, agent-specific credits, so the agent that
+        actually caused the failure receives a corrective signal while the agent that behaved well is reinforced.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+
+<!-- Abstract -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Large language model (LLM) agents struggle to autonomously evolve coordination strategies in dynamic
+            environments, largely because coarse global outcomes obscure the causal signals needed for local policy
+            refinement. We identify this bottleneck as a <strong>multi-agent credit assignment problem</strong>, which
+            has long been studied in classical multi-agent reinforcement learning (MARL) but remains underaddressed in
+            LLM-based systems.
+          </p>
+          <p>
+            Building on this observation, we propose <strong>LangMARL</strong>, a framework that brings credit assignment
+            and policy gradient evolution from cooperative MARL into the language space. LangMARL introduces agent-level
+            language credit assignment, pioneers gradient evolution in language space for policy improvement, and
+            summarizes task-relevant causal relations from replayed trajectories to provide dense feedback and improve
+            convergence under sparse rewards.
+          </p>
+          <p>
+            Extensive experiments across diverse cooperative multi-agent tasks demonstrate improved sample efficiency,
+            interpretability, and strong generalization. Our code is available at
+            <a href="https://github.com/DaRL-GenAI/LangMARL">github.com/DaRL-GenAI/LangMARL</a>, with a tutorial at
+            <a href="https://langmarl-tutorial.readthedocs.io/">langmarl-tutorial.readthedocs.io</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Why -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Why do multi-agent LLM systems stop improving?</h2>
+        <div class="content has-text-justified">
+          <p>
+            Most multi-agent LLM systems rely on hand-engineered prompts and static configurations, so agents cannot
+            evolve their strategies as the task distribution shifts. When these systems do try to self-improve, they
+            optimize against a single global outcome — a team-level success or failure — through global reflections or
+            monolithic prompt rewrites. That signal simply is not informative enough: it never says <em>which</em> agent
+            needs adjusting, which leads to inefficient learning or outright coordination collapse.
+          </p>
+          <p>
+            Classical MARL solved exactly this problem decades ago, with counterfactual baselines, value decomposition,
+            and the <em>centralized training, decentralized execution</em> (CTDE) paradigm. But those tools assume numeric
+            gradients over differentiable parameters. LLM agents are black boxes whose "parameters" are natural-language
+            instructions. <strong>LangMARL closes that gap by re-deriving each MARL component in language space.</strong>
+          </p>
+        </div>
+
+        <figure class="paper-figure figure-framed">
+          <img src="./static/images/langmarl/paradigm.png"
+               alt="Comparison of Auto Prompt Engineer, Reflexion, TextGrad/Symbolic, and LangMARL optimization paradigms.">
+          <figcaption>
+            <strong>Where LangMARL sits among self-evolving paradigms.</strong> Auto Prompt Engineer updates each policy
+            independently; Reflexion routes a global evaluation into per-agent memory; TextGrad and Symbolic Learning
+            push a shared global evaluation into every policy. Only LangMARL converts the trajectory into an
+            <em>individual credit</em> per agent before updating that agent's policy.
+          </figcaption>
+        </figure>
+
+        <div class="table-wrap">
+          <table class="results">
+            <colgroup>
+              <col><col><col><col><col class="ours-col">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>Self-Evolving</th><th>Central Critic</th><th>Text Gradient</th><th>Credit Assignment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="group"><td colspan="5">Static Prompting</td></tr>
+              <tr><td>CoT</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td></tr>
+              <tr><td>Agents</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td></tr>
+              <tr class="group"><td colspan="5">Single-Agent Self-Evolving</td></tr>
+              <tr><td>AutoPE</td><td>&#10003;</td><td>&#10003;</td><td>&#10007;</td><td>&#10007;</td></tr>
+              <tr><td>DSPy</td><td>&#10003;</td><td>&#10007;</td><td>&#10007;</td><td>&#10007;</td></tr>
+              <tr><td>Reflexion</td><td>&#10003;</td><td>&#10003;</td><td>&#10007;</td><td>&#10007;</td></tr>
+              <tr><td>TextGrad</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10007;</td></tr>
+              <tr class="group"><td colspan="5">Multi-Agent Self-Evolving</td></tr>
+              <tr><td>Agent Neural Network</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10007;</td></tr>
+              <tr><td>Symbolic Learning</td><td>&#10003;</td><td>&#10003;</td><td>&#10003;</td><td>&#10007;</td></tr>
+              <tr>
+                <td><strong>LangMARL (ours)</strong></td>
+                <td class="ours">&#10003;</td><td class="ours">&#10003;</td><td class="ours">&#10003;</td><td class="ours">&#10003;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">
+          Comparison across prompting and self-evolving paradigms. LangMARL unifies self-evolution, centralized critique,
+          and explicit credit assignment.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- How -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">How does LangMARL work?</h2>
+        <div class="content has-text-justified">
+          <p>
+            LangMARL follows a <strong>language CTDE</strong> loop. During training, a centralized critic sees the full
+            episodic trajectory and attributes the outcome to individual agents in natural language. At execution time,
+            each agent acts alone from its own language policy, with no access to global state or feedback. Four
+            components mirror the standard actor–critic stack:
+          </p>
+        </div>
+
+        <ul class="keypoints content">
+          <li>
+            <strong>Language Policy Actor.</strong> Each agent <em>i</em> holds a text-parameterized policy
+            <em>&pi;<sub>i</sub><sup>text</sup></em> mapping a natural-language observation to a natural-language action.
+            Its "parameters" are instructions, rules, and exemplars rather than numeric vectors.
+          </li>
+          <li>
+            <strong>Centralized Language Critic.</strong> Instead of estimating a scalar value, an LLM critic consumes
+            the complete rollout and emits a structured, per-agent credit
+            <em>C<sub>i</sub><sup>text</sup>(&tau;)</em> describing how that agent's actions causally helped or hurt the
+            episode. This is Monte-Carlo policy evaluation with a language-valued return.
+          </li>
+          <li>
+            <strong>Language Policy Gradient Estimator.</strong> A second LLM turns each agent's credit into a
+            language-form update direction <em>&Delta;&pi;<sub>i</sub><sup>text</sup>(&tau;<sub>k</sub>)</em> — the
+            language-space analogue of &nabla;<sub>&theta;</sub>J, computed without any numeric gradient.
+          </li>
+          <li>
+            <strong>Language Policy Optimizer.</strong> Gradients from a batch of trajectories are aggregated and applied
+            as a semantic policy update, producing the next generation of each agent's policy text.
+          </li>
+        </ul>
+
+        <figure class="paper-figure figure-framed">
+          <img src="./static/images/langmarl/pipeline.png"
+               alt="LangMARL system pipeline: language policy actor, centralized language critic, language policy gradient estimator, language policy optimizer, and the CTDE loop.">
+          <figcaption>
+            <strong>The LangMARL pipeline.</strong> (a) Each actor selects an action from its language policy and local
+            observation. (b) The centralized critic reads whole trajectories and emits per-agent contribution credits.
+            (c) The gradient estimator turns credits into policy critiques. (d) The optimizer synthesizes critiques into
+            an improved policy. (e) The full centralized-training / decentralized-execution loop.
+          </figcaption>
+        </figure>
+
+        <h3 class="title is-4" style="padding-top: 0.5rem;">A toolkit that reads like TorchRL</h3>
+        <div class="content has-text-justified">
+          <p>
+            LangMARL is packaged so that building an LLM multi-agent optimizer feels like writing a standard deep-RL
+            pipeline. The abstractions map one-to-one onto familiar MARL library components — only the underlying
+            representation changes from tensors to text.
+          </p>
+        </div>
+
+        <figure class="paper-figure figure-framed">
+          <img src="./static/images/langmarl/toolkit.png"
+               alt="Mapping between TorchRL abstractions and LangMARL abstractions: State, Policy Actor, Critic, Optimizer.">
+          <figcaption>
+            <strong>An easy-to-use toolkit.</strong> <code>TensorDict</code> becomes <code>langmarl.State</code>,
+            <code>ProbabilisticActor</code> becomes <code>langmarl.LLMActor</code>, <code>ValueOperator</code> becomes
+            <code>langmarl.LLMCritic</code>, and <code>Adam</code> becomes
+            <code>langmarl.LanguagePolicyOptimizer</code>. Rollout, credit assignment, and the optimizer step keep the
+            same syntax as classical MARL.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Results -->
+<section class="section" style="padding-top: 0;" id="results">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Does it work?</h2>
+        <div class="content has-text-justified">
+          <p>
+            We evaluate on two families of environments: <strong>cooperative language tasks</strong> (HotPotQA, MATH,
+            HumanEval, reframed as multi-agent RL problems) and <strong>strategic games</strong> with fixed roles and
+            physical constraints (Overcooked-AI and Pistonball). LangMARL achieves the best result on every benchmark,
+            against both static prompting and self-evolving baselines.
+          </p>
+        </div>
+
+        <div class="table-wrap">
+          <table class="results">
+            <colgroup>
+              <col><col><col><col><col><col><col><col><col class="ours-col">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Method</th>
+                <th>CoT</th><th>Agents</th>
+                <th>AutoPE</th><th>DSPy</th><th>Reflexion</th><th>TextGrad</th><th>Symbolic</th>
+                <th>LangMARL</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="group"><td colspan="9">Natural Language Benchmarks (Accuracy / Pass Rate)</td></tr>
+              <tr><td>HotPotQA</td><td>38.8</td><td>37.5</td><td>39.8</td><td>43.9</td><td>59.1</td><td>57.3</td><td>44.8</td><td class="ours">60.2</td></tr>
+              <tr><td>MATH</td><td>23.2</td><td>23.8</td><td>22.5</td><td>17.3</td><td>49.4</td><td>53.8</td><td>38.8</td><td class="ours">56.0</td></tr>
+              <tr><td>HumanEval</td><td>59.2</td><td>59.5</td><td>63.5</td><td>66.7</td><td>70.1</td><td>68.9</td><td>64.5</td><td class="ours">73.2</td></tr>
+
+              <tr class="group"><td colspan="9">Overcooked-AI (Mean Reward)</td></tr>
+              <tr><td>Forced Coord.</td><td>73.3</td><td>68.4</td><td>71.9</td><td>62.1</td><td>138.5</td><td>85.3</td><td>104.2</td><td class="ours">148.9</td></tr>
+              <tr><td>Coord. Ring</td><td>140.0</td><td>122.3</td><td>133.4</td><td>141.4</td><td>157.8</td><td>163.8</td><td>148.5</td><td class="ours">184.4</td></tr>
+              <tr><td>Counter Circuit</td><td>40.0</td><td>43.6</td><td>38.2</td><td>52.4</td><td>68.7</td><td>54.5</td><td>55.1</td><td class="ours">77.8</td></tr>
+              <tr><td>Asymm. Adv.</td><td>226.7</td><td>202.7</td><td>143.5</td><td>217.3</td><td>204.1</td><td>230.6</td><td>232.4</td><td class="ours">244.4</td></tr>
+              <tr><td>Cramped Room</td><td>126.7</td><td>118.5</td><td>122.8</td><td>145.7</td><td>151.1</td><td>131.3</td><td>147.5</td><td class="ours">171.4</td></tr>
+
+              <tr class="group"><td colspan="9">Pistonball (Mean Reward)</td></tr>
+              <tr><td>N = 10</td><td>-0.9</td><td>11.6</td><td>5.8</td><td>20.0</td><td>23.7</td><td>33.5</td><td>21.1</td><td class="ours">37.2</td></tr>
+              <tr><td>N = 12</td><td>-0.1</td><td>-2.7</td><td>-0.8</td><td>7.8</td><td>-6.2</td><td>24.3</td><td>3.1</td><td class="ours">29.6</td></tr>
+              <tr><td>N = 16</td><td>-8.5</td><td>-1.0</td><td>-3.1</td><td>-0.9</td><td>8.9</td><td>10.1</td><td>-7.6</td><td class="ours">17.2</td></tr>
+              <tr><td>N = 20</td><td>-11.5</td><td>-3.8</td><td>-6.2</td><td>-7.3</td><td>-1.2</td><td>14.3</td><td>3.3</td><td class="ours">22.9</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">
+          Mean performance after 5 training iterations with the same backbone LLMs (GPT-3.5-turbo for language
+          benchmarks, GPT-4o-mini for games). Notably, LangMARL keeps <strong>stable positive returns as the Pistonball
+          team scales to N&nbsp;=&nbsp;20</strong>, where baselines such as TextGrad degrade.
+        </p>
+
+        <figure class="paper-figure">
+          <img src="./static/images/langmarl/training_curve.png"
+               alt="Training curves with and without centralized credit assignment across benchmarks.">
+          <figcaption>
+            <strong>Learning dynamics.</strong> With centralized credit assignment (orange), optimization converges
+            faster and to a higher plateau on every benchmark. Without it (blue), training becomes unstable and settles
+            into suboptimal plateaus — most visibly on MATH and Pistonball.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- RQ2 -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Is the credit assignment actually right?</h2>
+
+        <div class="callout content">
+          <p>
+            We asked human annotators to identify the agent primarily responsible for the outcome across 70 Overcooked-AI
+            trajectories (14 per layout). <strong>The critic's top attribution matched human judgment on 89.9% of
+            trajectories</strong>, reaching 100% on Forced Coordination, where responsibility is unambiguous. This is
+            direct evidence — independent of downstream task performance — that the critic captures real causal
+            responsibility.
+          </p>
+        </div>
+
+        <div class="table-wrap">
+          <table class="results">
+            <thead>
+              <tr>
+                <th>Metric</th><th>Forced Coord.</th><th>Coord. Ring</th><th>Counter Circuit</th>
+                <th>Asymm. Adv.</th><th>Cramped Room</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Human agreement</td>
+                <td>100.0%</td><td>85.7%</td><td>92.9%</td><td>78.6%</td><td>92.9%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">Human verification of credit assignment quality on Overcooked-AI.</p>
+
+        <div class="columns is-vcentered">
+          <div class="column is-half">
+            <figure class="paper-figure">
+              <img src="./static/images/langmarl/ablation.png" alt="Ablation study on credit assignment.">
+              <figcaption>
+                <strong>Ablation on credit assignment.</strong> Replacing agent-wise credits with a single shared global
+                reward causes a clear drop in both Overcooked-AI and Pistonball.
+              </figcaption>
+            </figure>
+          </div>
+          <div class="column is-half">
+            <div class="table-wrap">
+              <table class="results">
+                <colgroup><col><col><col class="ours-col"><col></colgroup>
+                <thead>
+                  <tr><th>Layout</th><th>w/o Credit</th><th>w/ Credit</th><th>&Delta;</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Forced Coord.</td><td>82.7 <small>&plusmn;61.1</small></td><td class="ours">148.9 <small>&plusmn;48.1</small></td><td>+66.2**</td></tr>
+                  <tr><td>Coord. Ring</td><td>160.1 <small>&plusmn;40.3</small></td><td class="ours">184.4 <small>&plusmn;30.9</small></td><td>+24.3**</td></tr>
+                  <tr><td>Counter Circuit</td><td>30.9 <small>&plusmn;36.4</small></td><td class="ours">77.8 <small>&plusmn;40.4</small></td><td>+46.9***</td></tr>
+                  <tr><td>Asymm. Adv.</td><td>227.3 <small>&plusmn;59.8</small></td><td class="ours">244.4 <small>&plusmn;26.2</small></td><td>+17.1</td></tr>
+                  <tr><td>Cramped Room</td><td>128.6 <small>&plusmn;29.1</small></td><td class="ours">171.4 <small>&plusmn;28.9</small></td><td>+42.8***</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="table-note">*** p &lt; 0.01, ** p &lt; 0.05, * p &lt; 0.10.</p>
+          </div>
+        </div>
+
+        <h3 class="title is-4" style="padding-top: 0.5rem;">Roles that nobody wrote down</h3>
+        <div class="content has-text-justified">
+          <p>
+            Because credits are asymmetric — the critic praises one agent and corrects another — optimization pressure
+            breaks the initial symmetry between identically-prompted agents. Over five epochs of collaborative coding,
+            two generic problem solvers self-organize into complementary roles: <strong>Agent 1 specializes in structured
+            implementation, Agent 2 in critical review and refinement.</strong> No role was ever specified in the prompt.
+          </p>
+        </div>
+
+        <figure class="paper-figure figure-framed">
+          <img src="./static/images/langmarl/patterns.png"
+               alt="Emergent role specialization: two symmetric agents differentiate into implementer and critical reviewer.">
+          <figcaption>
+            <strong>Emergent role specialization in LangMARL.</strong> Top: the initial symmetric setup, with both agents
+            acting as generic problem solvers. Bottom: after iterative trajectory-level credit assignment and
+            language-based policy optimization, the agents settle into a complementary division of labor.
+          </figcaption>
+        </figure>
+
+        <figure class="paper-figure figure-framed">
+          <img src="./static/images/langmarl/demo.png"
+               alt="Worked examples of language credit assignment and policy optimization in Overcooked and Pistonball.">
+          <figcaption>
+            <strong>Credit assignment in action.</strong> (a) Overcooked: the critic analyzes a full trajectory, produces
+            agent-specific credits, and revises Player Green's policy, improving coordination with Player Blue.
+            (b) Pistonball: the critic identifies the causally responsible piston and assigns targeted credit, yielding a
+            local policy that corrects the blocking behavior.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- RQ3 -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">How robust is it across backbones and budgets?</h2>
+        <div class="content has-text-justified">
+          <p>
+            LangMARL is backbone-agnostic. Across GPT-4o-mini, Gemini-3-Flash, and the open-weight LLaMA-3.3-70B, it
+            beats the strongest baseline on both Coordination Ring and Forced Coordination — Gemini-3-Flash gives peak
+            performance, while LLaMA-3.3-70B stays competitive.
+          </p>
+          <p>
+            Rollout budget behaves differently with scale. On few-agent tasks like HumanEval, more rollouts monotonically
+            help. In large Pistonball teams the gain plateaus: beyond a point, extra rollouts amplify policy bias rather
+            than coverage, so there is an <strong>optimal rollout frequency that shrinks as agent density grows</strong>.
+          </p>
+        </div>
+
+        <figure class="paper-figure">
+          <img src="./static/images/langmarl/analysis.png"
+               alt="Sensitivity analysis: LLM backbone comparison and rollout-count effects on HumanEval and Pistonball.">
+          <figcaption>
+            <strong>Sensitivity analysis.</strong> (a) LLM backbones against the strongest baseline, Reflexion.
+            (b–c) Effect of Monte Carlo rollout counts on HumanEval and Pistonball.
+          </figcaption>
+        </figure>
+
+        <h3 class="title is-4" style="padding-top: 0.5rem;">Environments</h3>
+        <div class="columns is-vcentered">
+          <div class="column is-half">
+            <figure class="paper-figure figure-framed">
+              <img src="./static/images/langmarl/overcooked_layouts.png" alt="Five Overcooked-AI layouts.">
+              <figcaption>
+                <strong>Overcooked-AI.</strong> Two agents cook and deliver soup across five layouts, acting through a
+                hierarchical action space where semantic subgoals are translated into primitive movements.
+              </figcaption>
+            </figure>
+          </div>
+          <div class="column is-half">
+            <figure class="paper-figure figure-framed">
+              <img src="./static/images/langmarl/pistonball_layouts.png" alt="Pistonball environment layouts.">
+              <figcaption>
+                <strong>Pistonball.</strong> A team of up to 20 pistons moves a ball together, with each agent seeing only
+                a local vertical slice — severe partial observability under a sparse team reward.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Limitations -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">What's next</h2>
+        <div class="content has-text-justified">
+          <p>
+            <strong>Long-horizon agentic tasks.</strong> In workflows spanning hundreds of steps, such as autonomous
+            software development, sparse rewards and error propagation attenuate the causal link between an intervention
+            and the final outcome. Hierarchically decomposing long trajectories into semantic sub-goals would let the
+            critic give more granular feedback.
+          </p>
+          <p>
+            <strong>Dynamic sub-agent synthesis.</strong> LangMARL currently operates over a pre-defined agent topology.
+            We are working toward on-the-fly synthesis of specialized sub-agents, with dynamic task partitioning and
+            evolving communication protocols.
+          </p>
+          <p>
+            <strong>From policies to skills.</strong> LangMARL optimizes each agent's policy text.
+            <a href="./maskills.html">MASkills</a> extends the same language-space policy-gradient view to a richer unit
+            of procedural knowledge — reusable, transferable agent skills.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{yao2026langmarl,
+    title={LangMARL: Natural Language Multi-Agent Reinforcement Learning via Semantic Credit Assignment},
+    author={Yao, Huaiyuan and Da, Longchao and Liu, Xiaoou and Fleming, Charles and Chen, Tianlong and Wei, Hua},
+    booktitle={Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+    year={2026},
+    url={https://github.com/DaRL-GenAI/LangMARL},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            The work was partially supported by Cisco Faculty Award, Amazon Research Award, and NSF awards #2442477,
+            #2550203, #2616632, #2623317, #2536297, and #2613637. The views and conclusions in this paper should not be
+            interpreted as representing any funding agencies.
+          </p>
+          <p>
+            This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 License</a>.
+            You are free to borrow the <a href="https://github.com/nerfies/nerfies.github.io">source code</a> of this
+            website; we just ask that you link back to this page in the footer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

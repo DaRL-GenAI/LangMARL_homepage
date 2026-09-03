@@ -1,0 +1,236 @@
+/* Shared styles for the LangMARL / MASkills project site.
+   Layered on top of the Bulma + Nerfies base in index.css. */
+
+.section-narrow {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+/* ---------- Figures ---------- */
+
+figure.paper-figure {
+  margin: 0 0 2.25rem 0;
+}
+
+figure.paper-figure img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+figure.paper-figure figcaption {
+  margin-top: 0.85rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #555;
+  text-align: left;
+}
+
+figure.paper-figure figcaption strong {
+  color: #363636;
+}
+
+.figure-framed img {
+  border: 1px solid #e4e4e4;
+  border-radius: 8px;
+  padding: 6px;
+  background: #fff;
+}
+
+/* ---------- Project cards (landing page) ---------- */
+
+.project-card {
+  border: 1px solid #e4e4e4;
+  border-radius: 12px;
+  padding: 1.75rem 1.75rem 1.5rem 1.75rem;
+  background: #fff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.project-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.09);
+  transform: translateY(-2px);
+}
+
+.project-card .project-name {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.15rem;
+}
+
+.project-card .project-subtitle {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.45;
+  margin-bottom: 1rem;
+}
+
+.project-card .project-thumb {
+  border: 1px solid #ececec;
+  border-radius: 8px;
+  margin-bottom: 1.1rem;
+  background: #fff;
+  padding: 6px;
+}
+
+.project-card .project-body {
+  flex-grow: 1;
+  text-align: justify;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.project-card .project-links {
+  margin-top: 1.25rem;
+}
+
+/* ---------- Tag / badge row ---------- */
+
+.tag-row {
+  margin-bottom: 0.9rem;
+}
+
+.tag-row .tag {
+  margin-right: 0.4rem;
+  margin-bottom: 0.35rem;
+  font-family: 'Google Sans', sans-serif;
+}
+
+/* ---------- Result tables ---------- */
+
+.table-wrap {
+  overflow-x: auto;
+  margin-bottom: 0.75rem;
+}
+
+table.results {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  font-variant-numeric: tabular-nums;
+}
+
+table.results th,
+table.results td {
+  padding: 0.42rem 0.6rem;
+  border: none;
+  text-align: center;
+  white-space: nowrap;
+}
+
+table.results thead th {
+  border-bottom: 2px solid #363636;
+  font-family: 'Google Sans', sans-serif;
+  font-weight: 600;
+}
+
+table.results tbody tr:last-child td {
+  border-bottom: 2px solid #363636;
+}
+
+table.results th:first-child,
+table.results td:first-child {
+  text-align: left;
+  white-space: nowrap;
+}
+
+table.results tr.group td {
+  background: #f2f2f2;
+  font-style: italic;
+  text-align: center;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.6rem;
+}
+
+table.results td.ours {
+  font-weight: 700;
+  color: #b60000;
+}
+
+table.results col.ours-col {
+  background: #fff5f5;
+}
+
+.table-note {
+  font-size: 0.82rem;
+  color: #777;
+  margin-bottom: 2rem;
+}
+
+/* ---------- Key-point list ---------- */
+
+ul.keypoints {
+  list-style: none;
+  margin-left: 0;
+}
+
+ul.keypoints li {
+  position: relative;
+  padding-left: 1.6rem;
+  margin-bottom: 0.7rem;
+  text-align: justify;
+}
+
+ul.keypoints li:before {
+  content: "\25B8";
+  position: absolute;
+  left: 0.35rem;
+  color: #b60000;
+}
+
+/* ---------- Highlight callout ---------- */
+
+.callout {
+  border-left: 4px solid #b60000;
+  background: #fafafa;
+  padding: 1rem 1.25rem;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 1.5rem;
+}
+
+.callout p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---------- Stat strip ---------- */
+
+.stat {
+  text-align: center;
+  padding: 0.5rem 0.25rem;
+}
+
+.stat .stat-value {
+  font-family: 'Google Sans', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #b60000;
+  line-height: 1.1;
+}
+
+.stat .stat-label {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.35;
+  margin-top: 0.3rem;
+}
+
+/* ---------- BibTeX ---------- */
+
+section#BibTeX pre {
+  background: #f7f7f7;
+  border-radius: 6px;
+  font-size: 0.82rem;
+}
+
+/* ---------- Venue tag ---------- */
+
+.tag.venue-tag {
+  background: #b60000;
+  color: #fff;
+  font-weight: 600;
+}

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="LangMARL and MASkills: language-space optimization for self-evolving multi-agent LLM systems, from the DaRL lab at Arizona State University.">
+  <meta name="keywords" content="LangMARL, MASkills, Multi-Agent, MARL, Credit Assignment, Agent Skills, LLM Agents">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LangMARL &amp; MASkills: Language-Space Optimization for Multi-Agent LLM Systems</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="stylesheet" href="./static/css/site.css">
+  <link rel="icon" href="./static/images/sun_devil.webp">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://labs.engineering.asu.edu/hw/">
+        <span class="icon"><i class="fas fa-home"></i></span>
+      </a>
+      <a class="navbar-item" href="./index.html"><strong>Overview</strong></a>
+      <a class="navbar-item" href="./langmarl.html">LangMARL</a>
+      <a class="navbar-item" href="./maskills.html">MASkills</a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">More Research</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://darl-genai.github.io/instructional_agents_homepage/">
+            Instructional Agents: Multi-Agent Instructional Design
+          </a>
+          <a class="navbar-item" href="https://github.com/hyan-yao/comal">
+            CoMAL: Collaborative Multi-Agent LLMs for Mixed-Autonomy Traffic
+          </a>
+          <a class="navbar-item" href="https://www.youtube.com/watch?v=QOYWah7--nA">
+            Open-TI: Open Traffic Intelligence with Augmented Language Models
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            Teaching Multi-Agent LLM Systems to Improve Themselves
+          </h1>
+          <p class="is-size-4" style="color:#555; font-family:'Google Sans', sans-serif; margin-top: 0.5rem;">
+            Credit assignment and policy-gradient optimization, redefined in language space.
+          </p>
+
+          <div class="is-size-5 publication-authors" style="margin-top: 1.5rem;">
+            <span class="author-block">
+              <a href="https://labs.engineering.asu.edu/hw/">Data Mining and Reinforcement Learning (DaRL) Lab</a>
+            </span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Arizona State University &nbsp;&middot;&nbsp; Cisco Research &nbsp;&middot;&nbsp; UNC Chapel Hill</span>
+          </div>
+
+          <p class="is-size-5 has-text-centered"
+             style="color:#b60000; font-weight:600; display:block; margin-top: 0.75rem;">
+            Both papers accepted to EMNLP 2026
+          </p>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="./langmarl.html" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-project-diagram"></i></span>
+                  <span>LangMARL</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="./maskills.html" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fas fa-cubes"></i></span>
+                  <span>MASkills</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://github.com/DaRL-GenAI" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>DaRL-GenAI</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- The thread -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">One question, two answers</h2>
+        <div class="content has-text-justified">
+          <p>
+            LLM agents coordinate well when a human writes the right prompts. They stop getting better the moment that
+            human stops. The reason is not model capacity — it is that a multi-agent system only ever observes a
+            <strong>global outcome</strong>: the team succeeded, or it did not. That signal cannot say <em>which</em>
+            agent should change, so self-improvement degenerates into vague reflections and monolithic prompt rewrites.
+          </p>
+          <p>
+            Classical multi-agent reinforcement learning has a name for this — the <strong>credit assignment
+            problem</strong> — and forty years of machinery for solving it. Our work brings that machinery into language
+            space, where an agent's "parameters" are text rather than tensors. Two papers ask the same question at two
+            levels of abstraction:
+          </p>
+        </div>
+
+        <div class="columns is-centered" style="margin-top: 1rem;">
+          <div class="column is-4">
+            <div class="stat">
+              <div class="stat-value">Who?</div>
+              <div class="stat-label">
+                <strong>LangMARL</strong> attributes team outcomes to individual agents and updates their policies.
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="stat">
+              <div class="stat-value">Which?</div>
+              <div class="stat-label">
+                <strong>MASkills</strong> attributes them to individual skill invocations and evolves the skill library.
+              </div>
+            </div>
+          </div>
+          <div class="column is-4">
+            <div class="stat">
+              <div class="stat-value">Text</div>
+              <div class="stat-label">
+                Both replace numeric gradients with natural-language credits and edit directions.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Project cards -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns">
+
+      <!-- LangMARL -->
+      <div class="column is-half">
+        <div class="project-card">
+          <div class="tag-row">
+            <span class="tag venue-tag">EMNLP 2026 Main</span>
+            <span class="tag is-light">Credit Assignment</span>
+            <span class="tag is-light">Toolkit</span>
+          </div>
+          <div class="project-name">LangMARL</div>
+          <div class="project-subtitle">
+            Natural Language Multi-Agent Reinforcement Learning via Semantic Credit Assignment
+          </div>
+
+          <a href="./langmarl.html">
+            <img class="project-thumb" src="./static/images/langmarl/paradigm.png"
+                 alt="LangMARL compared with Auto Prompt Engineer, Reflexion, and TextGrad/Symbolic paradigms.">
+          </a>
+
+          <div class="project-body">
+            <p>
+              LangMARL rebuilds the cooperative MARL stack in natural language: a <strong>language policy actor</strong>
+              per agent, a <strong>centralized language critic</strong> that reads whole trajectories and emits
+              per-agent causal credits, a <strong>language policy gradient estimator</strong>, and a
+              <strong>language policy optimizer</strong> — all under centralized training with decentralized execution,
+              and packaged with TorchRL-style abstractions.
+            </p>
+            <p>
+              It leads on HotPotQA, MATH, HumanEval, all five Overcooked-AI layouts, and Pistonball up to 20 agents. The
+              critic's attributions agree with human annotators on <strong>89.9%</strong> of trajectories, and
+              identically-prompted agents spontaneously differentiate into complementary roles.
+            </p>
+          </div>
+
+          <div class="project-links">
+            <a href="./langmarl.html" class="button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fas fa-arrow-right"></i></span><span>Project page</span>
+            </a>
+            <a href="https://github.com/DaRL-GenAI/LangMARL" class="button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+            </a>
+            <a href="https://langmarl-tutorial.readthedocs.io/" class="button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fas fa-book"></i></span><span>Tutorial</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MASkills -->
+      <div class="column is-half">
+        <div class="project-card">
+          <div class="tag-row">
+            <span class="tag venue-tag">EMNLP 2026 Findings</span>
+            <span class="tag is-light">Agent Skills</span>
+            <span class="tag is-light">Transfer</span>
+          </div>
+          <div class="project-name">MASkills</div>
+          <div class="project-subtitle">
+            Continual Skills Optimization for Multi-Agent LLM Systems
+          </div>
+
+          <a href="./maskills.html">
+            <img class="project-thumb" src="./static/images/maskills/pipeline.png"
+                 alt="MASkills pipeline: skill execution, skill credit assignment, stabilized language gradient descent, skill evolution.">
+          </a>
+
+          <div class="project-body">
+            <p>
+              Experience memories record what happened; <strong>skills</strong> record what to do again. MASkills makes
+              the skill library — <code>skill.yaml</code>, <code>SKILL.md</code>, resources — the thing being optimized.
+              A critic assigns credit to individual <strong>skill invocations</strong> by counterfactual comparison;
+              edit directions are aggregated across trajectories, skills, agents, and topologies and smoothed with
+              momentum; four operators <strong>refine, induce, consolidate, and prune</strong> skills, with every edit
+              gated by held-out validation and rollback.
+            </p>
+            <p>
+              It reaches 76.3 F1 on HotpotQA and 23.3 average on GAIA, and skills learned in one environment
+              <strong>transfer to unseen tasks with no further optimization</strong>.
+            </p>
+          </div>
+
+          <div class="project-links">
+            <a href="./maskills.html" class="button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fas fa-arrow-right"></i></span><span>Project page</span>
+            </a>
+            <a href="https://github.com/DaRL-GenAI/MASkills" class="button is-normal is-rounded is-dark">
+              <span class="icon"><i class="fab fa-github"></i></span><span>Code</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- Shared idea -->
+<section class="section" style="padding-top: 0;">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">The shared recipe</h2>
+        <div class="content has-text-justified">
+          <p>
+            Both frameworks run the same four-stage loop. Only the object being optimized changes — a policy in
+            LangMARL, a skill library in MASkills.
+          </p>
+        </div>
+
+        <ul class="keypoints content">
+          <li>
+            <strong>Roll out under decentralized execution.</strong> Each agent acts from its own text-parameterized
+            policy and local observation, with no access to global state.
+          </li>
+          <li>
+            <strong>Assign credit centrally, in language.</strong> A critic reads the full trajectory and explains, in
+            words, how each agent — and in MASkills, each invoked skill — causally helped or hurt the outcome. This
+            replaces the scalar value function.
+          </li>
+          <li>
+            <strong>Estimate a language gradient.</strong> Credits become structured natural-language edit directions:
+            what to reinforce, what to change, what to drop. No numeric gradient is ever computed.
+          </li>
+          <li>
+            <strong>Optimize, then verify.</strong> Gradients are aggregated across a batch and applied as semantic
+            updates. MASkills adds momentum across cycles for variance reduction and a held-out validation rule that
+            rolls back any regression — a trust region for text.
+          </li>
+        </ul>
+
+        <figure class="paper-figure figure-framed" style="margin-top: 1.5rem;">
+          <img src="./static/images/langmarl/toolkit.png"
+               alt="Mapping between TorchRL abstractions and LangMARL abstractions.">
+          <figcaption>
+            <strong>Familiar abstractions, new representation.</strong> <code>TensorDict</code> &rarr;
+            <code>langmarl.State</code>, <code>ProbabilisticActor</code> &rarr; <code>langmarl.LLMActor</code>,
+            <code>ValueOperator</code> &rarr; <code>langmarl.LLMCritic</code>, <code>Adam</code> &rarr;
+            <code>langmarl.LanguagePolicyOptimizer</code>. Building an LLM multi-agent optimizer looks like writing a
+            standard deep-RL pipeline.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{yao2026langmarl,
+    title={LangMARL: Natural Language Multi-Agent Reinforcement Learning via Semantic Credit Assignment},
+    author={Yao, Huaiyuan and Da, Longchao and Liu, Xiaoou and Fleming, Charles and Chen, Tianlong and Wei, Hua},
+    booktitle={Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing (EMNLP)},
+    year={2026},
+    url={https://github.com/DaRL-GenAI/LangMARL},
+}
+
+@inproceedings{yao2026maskills,
+    title={MASkills: Continual Skills Optimization for Multi-Agent LLM Systems},
+    author={Yao, Huaiyuan and Liu, Xiaoou and Fleming, Charles and Chen, Tianlong and Wei, Hua},
+    booktitle={Findings of the Association for Computational Linguistics: EMNLP 2026},
+    year={2026},
+    url={https://github.com/DaRL-GenAI/MASkills},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+            The work was partially supported by Cisco Faculty Award, Amazon Research Award, and NSF awards #2442477,
+            #2550203, #2616632, #2623317, #2536297, and #2613637. The views and conclusions in this paper should not be
+            interpreted as representing any funding agencies.
+          </p>
+          <p>
+            This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 License</a>.
+            You are free to borrow the <a href="https://github.com/nerfies/nerfies.github.io">source code</a> of this
+            website; we just ask that you link back to this page in the footer.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

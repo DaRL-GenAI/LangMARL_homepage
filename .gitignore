@@ -1,0 +1,5 @@
+.DS_store
+.idea
+
+# Paper sources — not for the public site
+*.zip
